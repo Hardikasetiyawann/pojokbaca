@@ -19,18 +19,21 @@ class BukuModel extends Model
     protected $updatedField     = 'diperbarui_pada';
 
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'judul',
-        'deskripsi',
-        'tahun_terbit',
-        'url_sampul',
-        'url_file',
-        'penulis_id',
-        'penerbit_id',
-        'kategori_id',
-        'genre_id',
-        'diperbarui_oleh'
-    ];
+    protected $allowedFields = [
+    'judul',
+    'deskripsi',
+    'tahun_terbit',
+    'url_sampul',
+    'url_file',
+    'file_sampul',    
+    'file_buku',      
+    'penulis_id',
+    'penerbit_id',
+    'kategori_id',
+    'genre_id',
+    'diperbarui_oleh'
+];
+
 
     protected $validationRules = [
         'judul'          => 'required|min_length[3]',
@@ -41,6 +44,9 @@ class BukuModel extends Model
         'kategori_id'    => 'required|is_natural_no_zero',
         'genre_id'       => 'required|is_natural_no_zero',
         'diperbarui_oleh'=> 'permit_empty|is_natural_no_zero',
+        'file_sampul' => 'permit_empty',
+        'file_buku'   => 'permit_empty',
+
     ];
 
     protected $validationMessages = [

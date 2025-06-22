@@ -58,4 +58,16 @@ class BukuEntity extends Entity
         $text = strip_tags($this->attributes['deskripsi'] ?? '');
         return strlen($text) > $limit ? substr($text, 0, $limit) . '...' : $text;
     }
+    public function getFileSampul(): string
+    {
+        $binary = $this->attributes['file_sampul'] ?? null;
+        return $binary ? 'data:image/jpeg;base64,' . base64_encode($binary) : '';
+    }
+
+    public function getFileBuku(): string
+    {
+        $binary = $this->attributes['file_buku'] ?? null;
+        return $binary ? 'data:application/pdf;base64,' . base64_encode($binary) : '';
+    }
+
 }

@@ -22,15 +22,13 @@ class Buku extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'url_sampul' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-                'null'       => true,
+            'file_sampul' => [
+                'type' => 'LONGBLOB',
+                'null' => true,
             ],
-            'url_file' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-                'null'       => true,
+            'file_buku' => [
+                'type' => 'LONGBLOB',
+                'null' => true,
             ],
             'penulis_id' => [
                 'type'     => 'INT',
@@ -56,19 +54,25 @@ class Buku extends Migration
                 'null' => true,
             ],
             'diperbarui_oleh' => [
-            'type'       => 'INT',
-            'unsigned'   => true,
-            'null'       => true,
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => true,
+            ],
+            'genre' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
 
-        // Foreign keys – make sure referenced tables sudah ada
+        // Foreign keys
         $this->forge->addForeignKey('penulis_id', 'penulis', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('kategori_id', 'kategori', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('penerbit_id', 'penerbit', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('diperbarui_oleh', 'admin', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('genre', 'genre', 'id', 'CASCADE', 'CASCADE'); // tambahan FK genre
 
         $this->forge->createTable('buku');
     }

@@ -34,9 +34,18 @@ class Buku extends BaseController
 
     public function create()
     {
-        $data = $this->request->getJSON(true);
-        if (empty($data)) {
-            return $this->fail('Data tidak boleh kosong', 400);
+        $data = $this->request->getPost(); // gunakan getPost untuk menangkap inputan form
+
+        // File upload
+        $fileSampul = $this->request->getFile('file_sampul');
+        $fileBuku   = $this->request->getFile('file_buku');
+
+        if ($fileSampul && $fileSampul->isValid()) {
+            $data['file_sampul'] = file_get_contents($fileSampul->getTempName());
+        }
+
+        if ($fileBuku && $fileBuku->isValid()) {
+            $data['file_buku'] = file_get_contents($fileBuku->getTempName());
         }
 
         if (!$this->bukuModel->insert($data)) {
@@ -54,13 +63,21 @@ class Buku extends BaseController
 
     public function update($id = null)
     {
-        $data = $this->request->getJSON(true);
-        if (empty($data)) {
-            return $this->fail('Data tidak boleh kosong', 400);
-        }
-
         if (!$this->bukuModel->find($id)) {
             return $this->failNotFound("Buku dengan ID $id tidak ditemukan");
+        }
+
+        $data = $this->request->getPost();
+
+        $fileSampul = $this->request->getFile('file_sampul');
+        $fileBuku   = $this->request->getFile('file_buku');
+
+        if ($fileSampul && $fileSampul->isValid()) {
+            $data['file_sampul'] = file_get_contents($fileSampul->getTempName());
+        }
+
+        if ($fileBuku && $fileBuku->isValid()) {
+            $data['file_buku'] = file_get_contents($fileBuku->getTempName());
         }
 
         if (!$this->bukuModel->update($id, $data)) {
