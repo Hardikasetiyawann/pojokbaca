@@ -34,19 +34,23 @@ class Buku extends BaseController
 
     public function create()
     {
-        $data = $this->request->getPost(); // gunakan getPost untuk menangkap inputan form
+        $data = $this->request->getPost();
 
-        // File upload
+        // Handle file sampul
         $fileSampul = $this->request->getFile('file_sampul');
-        $fileBuku   = $this->request->getFile('file_buku');
-
         if ($fileSampul && $fileSampul->isValid()) {
             $data['file_sampul'] = file_get_contents($fileSampul->getTempName());
         }
 
+        // Handle file buku
+        $fileBuku = $this->request->getFile('file_buku');
         if ($fileBuku && $fileBuku->isValid()) {
             $data['file_buku'] = file_get_contents($fileBuku->getTempName());
         }
+
+        // Tambahkan waktu buat dan update
+        $data['dibuat_pada'] = date('Y-m-d H:i:s');
+        $data['diperbarui_pada'] = date('Y-m-d H:i:s');
 
         if (!$this->bukuModel->insert($data)) {
             return $this->failValidationErrors($this->bukuModel->errors());
@@ -56,7 +60,7 @@ class Buku extends BaseController
 
         return $this->respondCreated([
             'status'  => true,
-            'message' => 'Buku berhasil ditambahkan',
+            'message' => 'Buku berhasil ditambahkan.',
             'data'    => $data
         ]);
     }
