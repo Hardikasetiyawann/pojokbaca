@@ -23,7 +23,7 @@ class Buku extends Migration
                 'null' => true,
             ],
             'file_sampul' => [
-                'type' => 'LONGBLOB',
+                'type' => 'BLOB',
                 'null' => true,
             ],
             'file_buku' => [
@@ -58,21 +58,21 @@ class Buku extends Migration
                 'unsigned' => true,
                 'null'     => true,
             ],
-            'genre' => [
-                'type'     => 'INT',
+            'genre_id' => [
+                'type' => 'INT',
                 'unsigned' => true,
-                'null'     => true,
+                'null' => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
 
-        // Foreign keys
+        
         $this->forge->addForeignKey('penulis_id', 'penulis', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('kategori_id', 'kategori', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('penerbit_id', 'penerbit', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('diperbarui_oleh', 'admin', 'id', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('genre', 'genre', 'id', 'CASCADE', 'CASCADE'); // tambahan FK genre
+        $this->forge->addForeignKey('genre_id', 'genre', 'id', 'CASCADE', 'CASCADE');
 
         $this->forge->createTable('buku');
     }
