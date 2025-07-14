@@ -56,6 +56,7 @@ class Kategori extends BaseController
     public function update($id = null)
     {
         $data = $this->request->getJSON(true);
+        $data['id'] = $id; // agar rule is_unique bekerja sesuai ID-nya
 
         if (empty($data)) {
             return $this->fail('Data tidak boleh kosong.', 400);

@@ -93,4 +93,31 @@ class Admin extends BaseController
             'message' => 'Data admin berhasil dihapus',
         ]);
     }
+    // Admin.php (Controller)
+    public function login()
+    {
+        $json = $this->request->getJSON();
+        $username = $json->username ?? '';
+        $password = $json->password ?? '';
+
+        $admin = $this->adminModel->where('username', $username)->first();
+
+        if ($admin && password_verify($password, $admin['password'])) {
+            unset($admin['password']); // amankan password dari response
+
+            return $this->respond([
+                'status' => true,
+                'message' => 'Login berhasil',
+                'role' => 'admin',
+                'data' => $admin
+            ]);
+        } else {
+            return $this->respond([
+                'status' => false,
+                'message' => 'Login gagal: username atau password salah'
+            ], 401);
+        }
+    }
+
+
 }

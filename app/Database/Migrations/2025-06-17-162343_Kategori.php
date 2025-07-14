@@ -18,15 +18,7 @@ class Kategori extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'null'       => false,
-            ],
-            'dibuat_pada' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'diperbarui_pada' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
+            ]
         ]);
 
         $this->forge->addKey('id', true); // Primary Key

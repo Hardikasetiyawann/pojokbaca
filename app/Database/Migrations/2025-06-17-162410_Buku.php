@@ -23,11 +23,12 @@ class Buku extends Migration
                 'null' => true,
             ],
             'file_sampul' => [
-                'type' => 'BLOB',
-                'null' => true,
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
             ],
-            'file_buku' => [
-                'type' => 'LONGBLOB',
+            'isi_buku' => [
+                'type' => 'TEXT',
                 'null' => true,
             ],
             'penulis_id' => [

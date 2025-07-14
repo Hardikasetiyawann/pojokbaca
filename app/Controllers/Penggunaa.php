@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
-use App\Entities\Pengguna;
+use App\Entities\PenggunaEntity;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class Penggunaa extends ResourceController
 {
@@ -12,106 +13,184 @@ class Penggunaa extends ResourceController
 
     public function index()
     {
-        $pengguna = $this->model->findAll();
-
-        return $this->respond([
-            'status' => true,
-            'message' => 'Daftar pengguna',
-            'data' => $pengguna
-        ]);
+        try {
+            $pengguna = $this->model->findAll();
+            return $this->respond([
+                'status'  => true,
+                'message' => 'Daftar pengguna',
+                'data'    => $pengguna
+            ]);
+        } catch (\Throwable $e) {
+            return $this->failServerError($e->getMessage());
+        }
     }
 
     public function show($id = null)
     {
-        $pengguna = $this->model->find($id);
+        try {
+            if (!$id || !is_numeric($id)) {
+                return $this->fail('ID tidak valid', 400);
+            }
 
-        if (!$pengguna) {
-            return $this->failNotFound('Pengguna tidak ditemukan');
+            $pengguna = $this->model->find($id);
+            if (!$pengguna) {
+                return $this->failNotFound('Pengguna tidak ditemukan');
+            }
+
+            return $this->respond([
+                'status'  => true,
+                'message' => 'Detail pengguna',
+                'data'    => $pengguna
+            ]);
+        } catch (\Throwable $e) {
+            return $this->failServerError($e->getMessage());
         }
-
-        return $this->respond([
-            'status' => true,
-            'message' => 'Detail pengguna',
-            'data' => $pengguna
-        ]);
     }
 
     public function create()
     {
-        $data = $this->request->getJSON(true);
+        try {
+            $data = $this->request->getJSON(true);
 
-        if (!$data) {
-            return $this->fail('Data tidak boleh kosong', 400);
+            if (!$data || !is_array($data)) {
+                return $this->fail('Data tidak boleh kosong', 400);
+            }
+
+            if (!$this->validateData($data, $this->model->getValidationRules(), $this->model->getValidationMessages())) {
+                return $this->failValidationErrors($this->validator->getErrors());
+            }
+
+            $pengguna = new PenggunaEntity();
+            $pengguna->fill($data);
+
+            if (!empty($data['password'])) {
+                $pengguna->password = $data['password'];
+            }
+
+            if (!$this->model->save($pengguna)) {
+                return $this->failServerError($this->model->errors());
+            }
+
+            $pengguna->id = $this->model->getInsertID();
+
+            return $this->respondCreated([
+                'status'  => true,
+                'message' => 'Pengguna berhasil didaftarkan',
+                'data'    => $pengguna
+            ]);
+        } catch (\Throwable $e) {
+            return $this->failServerError('Gagal membuat pengguna: ' . $e->getMessage());
         }
-
-        if (!$this->validateData($data, $this->model->getValidationRules(), $this->model->getValidationMessages())) {
-            return $this->failValidationErrors($this->validator->getErrors());
-        }
-
-        $pengguna = new Pengguna($data);
-
-        // Gunakan setter entity jika tersedia, contoh:
-        if (isset($data['kata_sandi'])) {
-            $pengguna->kata_sandi = $data['kata_sandi'];
-        }
-
-        if (!$this->model->save($pengguna)) {
-            return $this->failServerError($this->model->errors());
-        }
-
-        $pengguna->id = $this->model->getInsertID();
-
-        return $this->respondCreated([
-            'status' => true,
-            'message' => 'Pengguna berhasil didaftarkan',
-            'data' => $pengguna
-        ]);
     }
 
     public function update($id = null)
     {
-        if (!$this->model->find($id)) {
-            return $this->failNotFound('Pengguna tidak ditemukan');
+        try {
+            if (!$id || !is_numeric($id)) {
+                return $this->fail('ID tidak valid', 400);
+            }
+
+            $existing = $this->model->find($id);
+            if (!$existing) {
+                return $this->failNotFound('Pengguna tidak ditemukan');
+            }
+
+            $data = $this->request->getJSON(true);
+            if (!$data || !is_array($data)) {
+                return $this->fail('Data tidak boleh kosong', 400);
+            }
+
+            $data['id'] = $id;
+
+            if (!$this->validateData($data, $this->model->getValidationRules(), $this->model->getValidationMessages())) {
+                return $this->failValidationErrors($this->validator->getErrors());
+            }
+
+            $pengguna = new PenggunaEntity();
+            $pengguna->fill($data);
+
+            if (!empty($data['password'])) {
+                $pengguna->password = $data['password'];
+            }
+
+            if (!$this->model->save($pengguna)) {
+                return $this->failServerError($this->model->errors());
+            }
+
+            return $this->respondUpdated([
+                'status'  => true,
+                'message' => 'Data pengguna berhasil diperbarui',
+                'data'    => $pengguna
+            ]);
+        } catch (\Throwable $e) {
+            return $this->failServerError('Gagal memperbarui pengguna: ' . $e->getMessage());
         }
-
-        $data = $this->request->getJSON(true);
-        $data['id'] = $id;
-
-        if (!$this->validateData($data, $this->model->getValidationRules(), $this->model->getValidationMessages())) {
-            return $this->failValidationErrors($this->validator->getErrors());
-        }
-
-        $pengguna = new Pengguna($data);
-
-        if (isset($data['kata_sandi'])) {
-            $pengguna->kata_sandi = $data['kata_sandi'];
-        }
-
-        if (!$this->model->save($pengguna)) {
-            return $this->failServerError($this->model->errors());
-        }
-
-        return $this->respondUpdated([
-            'status' => true,
-            'message' => 'Data pengguna berhasil diperbarui',
-            'data' => $pengguna
-        ]);
     }
 
     public function delete($id = null)
     {
-        if (!$this->model->find($id)) {
-            return $this->failNotFound('Pengguna tidak ditemukan');
-        }
+        try {
+            if (!$id || !is_numeric($id)) {
+                return $this->fail('ID tidak valid', 400);
+            }
 
-        if (!$this->model->delete($id)) {
-            return $this->failServerError('Gagal menghapus pengguna');
-        }
+            if (!$this->model->find($id)) {
+                return $this->failNotFound('Pengguna tidak ditemukan');
+            }
 
-        return $this->respondDeleted([
-            'status' => true,
-            'message' => 'Pengguna berhasil dihapus',
-            'id' => $id
-        ]);
+            if (!$this->model->delete($id)) {
+                return $this->failServerError('Gagal menghapus pengguna');
+            }
+
+            return $this->respondDeleted([
+                'status'  => true,
+                'message' => 'Pengguna berhasil dihapus',
+                'id'      => $id
+            ]);
+        } catch (\Throwable $e) {
+            return $this->failServerError('Gagal menghapus pengguna: ' . $e->getMessage());
+        }
+    }
+
+    public function login()
+    {
+        try {
+            $json = $this->request->getJSON(true);
+
+            if (!is_array($json) || empty($json['nama']) || empty($json['password'])) {
+                return $this->response->setJSON([
+                    'status'  => false,
+                    'message' => 'Nama dan password harus diisi'
+                ])->setStatusCode(400);
+            }
+
+            $user = $this->model->where('nama', $json['nama'])->first();
+
+            if ($user && $user->status_akun == 1 && password_verify($json['password'], $user->password)) {
+                return $this->response->setJSON([
+                    'status'  => true,
+                    'message' => 'Login berhasil',
+                    'data'    => [
+                        'id'     => $user->id,
+                        'nama'   => $user->nama,
+                        'email'  => $user->email,
+                        'role'   => $user->role,
+                        'alamat' => $user->alamat,
+                        'no_hp'  => $user->no_hp,
+                        'foto'   => $user->foto,
+                    ]
+                ]);
+            }
+
+            return $this->response->setJSON([
+                'status'  => false,
+                'message' => 'Nama atau password salah atau akun belum aktif'
+            ])->setStatusCode(401);
+        } catch (\Throwable $e) {
+            return $this->response->setJSON([
+                'status'  => false,
+                'message' => 'Terjadi kesalahan saat login: ' . $e->getMessage()
+            ])->setStatusCode(500);
+        }
     }
 }

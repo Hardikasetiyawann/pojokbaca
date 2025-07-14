@@ -60,14 +60,11 @@ class BukuEntity extends Entity
     }
     public function getFileSampul(): string
     {
-        $binary = $this->attributes['file_sampul'] ?? null;
-        return $binary ? 'data:image/jpeg;base64,' . base64_encode($binary) : '';
-    }
+        $file = $this->attributes['file_sampul'] ?? null;
+        if (!$file) {
+            return ''; // atau URL placeholder
+        }
 
-    public function getFileBuku(): string
-    {
-        $binary = $this->attributes['file_buku'] ?? null;
-        return $binary ? 'data:application/pdf;base64,' . base64_encode($binary) : '';
+        return base_url('uploads/sampul/' . $file);
     }
-
 }
