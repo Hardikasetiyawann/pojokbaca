@@ -10,11 +10,11 @@ class AdminSeeds extends Seeder
     {
         $data = [
             [
-                'nama'          => 'AdminUtama',
-                'email'         => 'admin@pojokbaca.com',
+                'nama'          => 'Admin1',
+                'email'         => 'admin1@pojokbaca.com',
                 'password'      => password_hash('admin123', PASSWORD_DEFAULT),
-                'dibuat_pada'   => '2025-06-19 14:00:00',
-                'diperbarui_pada' => '2025-06-19 14:00:00',
+                'created_at'   => '2025-06-19 14:00:00',
+                'updated_at' => '2025-06-19 14:00:00',
             ],
         ];
 

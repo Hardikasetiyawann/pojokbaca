@@ -15,16 +15,16 @@ class PenerbitModel extends Model
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'dibuat_pada';
-    protected $updatedField  = 'diperbarui_pada';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     protected $protectFields = true;
     protected $allowedFields = [
         'nama',
         'alamat',
         'kontak',
-        'dibuat_pada',
-        'diperbarui_pada'
+        'created_at',
+        'updated_at'
     ];
 
     protected $validationRules = [

@@ -6,7 +6,7 @@ use CodeIgniter\Entity\Entity;
 
 class PenulisEntity extends Entity
 {
-    protected $dates = ['dibuat_pada', 'diperbarui_pada'];
+    protected $dates = ['created_at', 'updated_at'];
 
     protected $casts = [
         'id' => 'integer',
@@ -29,7 +29,7 @@ class PenulisEntity extends Entity
 
     public function getDibuatPada(string $format = 'd M Y H:i')
     {
-        $value = $this->attributes['dibuat_pada'] ?? null;
+        $value = $this->attributes['created_at'] ?? null;
 
         if ($value instanceof \DateTimeInterface) {
             return $value->format($format);

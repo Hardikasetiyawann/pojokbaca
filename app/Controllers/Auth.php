@@ -15,7 +15,7 @@ class Auth extends ResourceController
         $penggunaModel = new \App\Models\PenggunaModel();
         $user = $penggunaModel->where('nama', $username)->first();
 
-        if ($user && password_verify($password, $user->password)) {
+        if ($user && password_verify($password, $user['password'])) {
             return $this->respond([
                 'status' => true,
                 'data' => [
@@ -32,7 +32,7 @@ class Auth extends ResourceController
         $adminModel = new \App\Models\AdminModel();
         $admin = $adminModel->where('nama', $username)->first();
 
-        if ($admin && password_verify($password, $admin->password)) {
+        if ($admin && password_verify($password, $admin['password'])) {
             return $this->respond([
                 'status' => true,
                 'data' => [

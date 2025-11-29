@@ -6,7 +6,7 @@ use CodeIgniter\RESTful\ResourceController;
 use App\Entities\PenggunaEntity;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Penggunaa extends ResourceController
+class Pengguna extends ResourceController
 {
     protected $modelName = 'App\Models\PenggunaModel';
     protected $format    = 'json';
@@ -117,11 +117,11 @@ class Penggunaa extends ResourceController
                 return $this->failServerError($this->model->errors());
             }
 
-            return $this->respondUpdated([
+            return $this->respond([
                 'status'  => true,
                 'message' => 'Data pengguna berhasil diperbarui',
                 'data'    => $pengguna
-            ]);
+            ],200);
         } catch (\Throwable $e) {
             return $this->failServerError('Gagal memperbarui pengguna: ' . $e->getMessage());
         }
@@ -175,9 +175,8 @@ class Penggunaa extends ResourceController
                         'nama'   => $user->nama,
                         'email'  => $user->email,
                         'role'   => $user->role,
-                        'alamat' => $user->alamat,
-                        'no_hp'  => $user->no_hp,
-                        'foto'   => $user->foto,
+                        'avatar' => $user->avatar_url,
+                        'no_hp'  => $user->no_telepon,
                     ]
                 ]);
             }

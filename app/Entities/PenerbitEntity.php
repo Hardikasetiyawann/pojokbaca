@@ -7,11 +7,11 @@ use DateTime;
 
 class PenerbitEntity extends Entity
 {
-    protected $dates = ['dibuat_pada', 'diperbarui_pada'];
+    protected $dates = ['created_at', 'updated_at'];
 
     protected $casts = [
-        'dibuat_pada'     => 'datetime',
-        'diperbarui_pada' => 'datetime',
+        'created_at'     => 'datetime',
+        'updated_at' => 'datetime',
         'website'         => 'string',
     ];
 
@@ -22,7 +22,7 @@ class PenerbitEntity extends Entity
 
     public function getDibuatPada(string $format = 'd M Y'): string
     {
-        $tanggal = $this->attributes['dibuat_pada'] ?? null;
+        $tanggal = $this->attributes['created_at'] ?? null;
 
         if ($tanggal instanceof DateTime) {
             return $tanggal->format($format);

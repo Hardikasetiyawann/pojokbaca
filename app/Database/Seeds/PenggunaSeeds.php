@@ -25,8 +25,8 @@ class PenggunaSeeds extends Seeder
                 'email_terverifikasi' => true,
                 'status_akun'         => 'aktif',
                 'terakhir_login'      => $today,
-                'dibuat_pada'         => $now,
-                'diperbarui_pada'     => null,
+                'created_at'         => $now,
+                'updated_at'     => null,
             ],
             [
                 'nama'                => 'Fadly',
@@ -41,8 +41,8 @@ class PenggunaSeeds extends Seeder
                 'email_terverifikasi' => true,
                 'status_akun'         => 'aktif',
                 'terakhir_login'      => $today,
-                'dibuat_pada'         => $now,
-                'diperbarui_pada'     => null,
+                'created_at'         => $now,
+                'updated_at'     => null,
             ],
             [
                 'nama'                => 'Errik',
@@ -57,8 +57,8 @@ class PenggunaSeeds extends Seeder
                 'email_terverifikasi' => true,
                 'status_akun'         => 'aktif',
                 'terakhir_login'      => $today,
-                'dibuat_pada'         => $now,
-                'diperbarui_pada'     => null,
+                'created_at'         => $now,
+                'updated_at'     => null,
             ],
             [
                 'nama'                => 'Reza',
@@ -73,8 +73,8 @@ class PenggunaSeeds extends Seeder
                 'email_terverifikasi' => true,
                 'status_akun'         => 'aktif',
                 'terakhir_login'      => $today,
-                'dibuat_pada'         => $now,
-                'diperbarui_pada'     => null,
+                'created_at'         => $now,
+                'updated_at'     => null,
             ],
             [
                 'nama'                => 'Fattah',
@@ -89,8 +89,8 @@ class PenggunaSeeds extends Seeder
                 'email_terverifikasi' => true,
                 'status_akun'         => 'aktif',
                 'terakhir_login'      => $today,
-                'dibuat_pada'         => $now,
-                'diperbarui_pada'     => null,
+                'created_at'         => $now,
+                'updated_at'     => null,
             ],
             [
                 'nama'                => 'Adisa',
@@ -105,8 +105,8 @@ class PenggunaSeeds extends Seeder
                 'email_terverifikasi' => true,
                 'status_akun'         => 'aktif',
                 'terakhir_login'      => $today,
-                'dibuat_pada'         => $now,
-                'diperbarui_pada'     => null,
+                'created_at'         => $now,
+                'updated_at'     => null,
             ],
         ];
 

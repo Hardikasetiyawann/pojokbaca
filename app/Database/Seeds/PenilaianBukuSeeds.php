@@ -13,7 +13,7 @@ class PenilaianBukuSeeds extends Seeder
                 'pengguna_id' => 1,
                 'buku_id'     => 1, 
                 'penilaian'   => 5,
-                'dibuat_pada' => '2025-06-19 14:00:00', 
+                'created_at' => '2025-06-19 14:00:00', 
             ],
         ];
 

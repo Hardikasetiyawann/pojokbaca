@@ -12,8 +12,8 @@ class BukuModel extends Model
     protected $returnType       = BukuEntity::class;
     protected $useTimestamps    = true;
     protected $dateFormat       = 'datetime';
-    protected $createdField     = 'dibuat_pada';
-    protected $updatedField     = 'diperbarui_pada';
+    protected $createdField     = 'created_at';
+    protected $updatedField     = 'updated_at';
     protected $protectFields    = true;
 
     /**

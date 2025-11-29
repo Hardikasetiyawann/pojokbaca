@@ -6,11 +6,11 @@ use CodeIgniter\Entity\Entity;
 
 class AdminEntity extends Entity
 {
-    protected $dates = ['dibuat_pada', 'diperbarui_pada'];
+    protected $dates = ['created_at', 'updated_at'];
 
     protected $casts = [
-        'dibuat_pada'     => 'datetime',
-        'diperbarui_pada' => 'datetime',
+        'created_at'     => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     // Otomatis hash password
@@ -26,10 +26,10 @@ class AdminEntity extends Entity
         return isset($this->attributes['nama']) ? ucwords($this->attributes['nama']) : '';
     }
 
-    // Format tanggal dibuat_pada
+    // Format tanggal created_at
     public function getDibuatPada(string $format = 'd M Y H:i'): string
     {
-        $date = $this->attributes['dibuat_pada'] ?? null;
+        $date = $this->attributes['created_at'] ?? null;
 
         if ($date instanceof \DateTime) {
             return $date->format($format);

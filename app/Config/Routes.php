@@ -27,7 +27,7 @@ $routes->group('Peminjaman', function($routes) {
 });
 
 // Pengguna
-$routes->resource('Penggunaa');
+$routes->resource('Pengguna');
 $routes->post('login', 'Auth::login');
 
 

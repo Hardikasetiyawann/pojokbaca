@@ -12,12 +12,12 @@ class PenerbitSeeds extends Seeder
             [
                 'nama'        => 'KPG (Kepustakaan Populer Gramedia)',
                 'alamat'      => 'Jakarta',
-                'dibuat_pada' => '2017-10-01 00:00:00'
+                'created_at' => '2017-10-01 00:00:00'
             ],
             [
                 'nama'        => 'PT Gramedia Pustaka Utama',
                 'alamat'      => 'Jakarta',
-                'dibuat_pada' => '2012-10-01 00:00:00'
+                'created_at' => '2012-10-01 00:00:00'
             ],
         ];
 

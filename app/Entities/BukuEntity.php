@@ -7,11 +7,17 @@ use DateTime;
 
 class BukuEntity extends Entity
 {
-    protected $dates = ['dibuat_pada', 'diperbarui_pada'];
+    protected $dates = ['created_at', 'updated_at'];
 
     protected $casts = [
-        'dibuat_pada'     => 'datetime',
-        'diperbarui_pada' => 'datetime',
+        'tahun_terbit' => 'int',
+        'kategori_id'  => 'int',
+        'genre_id'     => 'int',
+        'penulis_id'   => 'int',
+        'penerbit_id'  => 'int',
+        'diperbarui_oleh' => 'int',
+        'created_at'     => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     // Format judul dengan huruf kapital di awal kata
@@ -23,7 +29,7 @@ class BukuEntity extends Entity
     // Format tanggal dibuat
     public function getDibuatPada(string $format = 'd M Y'): string
     {
-        $tanggal = $this->attributes['dibuat_pada'] ?? null;
+        $tanggal = $this->attributes['created_at'] ?? null;
 
         if ($tanggal instanceof DateTime) {
             return $tanggal->format($format);
@@ -39,7 +45,7 @@ class BukuEntity extends Entity
     // Format tanggal diperbarui
     public function getDiperbaruiPada(string $format = 'd M Y H:i'): string
     {
-        $tanggal = $this->attributes['diperbarui_pada'] ?? null;
+        $tanggal = $this->attributes['updated_at'] ?? null;
 
         if ($tanggal instanceof DateTime) {
             return $tanggal->format($format);

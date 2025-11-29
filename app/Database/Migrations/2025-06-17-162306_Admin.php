@@ -30,11 +30,11 @@ class Admin extends Migration
                 'constraint' => 255,
                 'null'       => false,
             ],
-            'dibuat_pada' => [
+            'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            'diperbarui_pada' => [
+            'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],

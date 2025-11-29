@@ -12,8 +12,8 @@ class PenggunaEntity extends Entity
     protected $dates = [
         'tanggal_lahir',
         'terakhir_login',
-        'dibuat_pada',
-        'diperbarui_pada',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -21,7 +21,8 @@ class PenggunaEntity extends Entity
      */
     protected $casts = [
         'email_terverifikasi' => 'boolean',
-        'status_akun'         => 'integer',
+        'terakhir_login'      => 'date',
+        'status_akun'         => 'string',
     ];
 
     /**
@@ -29,7 +30,7 @@ class PenggunaEntity extends Entity
      */
     protected $attributes = [
         'role'        => 'user',  // Default peran
-        'status_akun' => 1,       // 1 = aktif, 0 = nonaktif
+        'status_akun' => 'aktif',       // 1 = aktif, 0 = nonaktif
     ];
 
     /**

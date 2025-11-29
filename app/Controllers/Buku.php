@@ -114,8 +114,8 @@ class Buku extends BaseController
             $data['isi_buku'] = $newPdfName;
         }
 
-        $data['dibuat_pada']     = date('Y-m-d H:i:s');
-        $data['diperbarui_pada'] = date('Y-m-d H:i:s');
+        $data['created_at']     = date('Y-m-d H:i:s');
+        $data['updated_at'] = date('Y-m-d H:i:s');
 
         if (!$this->bukuModel->insert($data)) {
             return $this->failValidationErrors($this->bukuModel->errors());
@@ -173,7 +173,7 @@ class Buku extends BaseController
             }
         }
 
-        $data['diperbarui_pada'] = date('Y-m-d H:i:s');
+        $data['updated_at'] = date('Y-m-d H:i:s');
 
         if (!$this->bukuModel->update($id, $data)) {
             return $this->failValidationErrors($this->bukuModel->errors());

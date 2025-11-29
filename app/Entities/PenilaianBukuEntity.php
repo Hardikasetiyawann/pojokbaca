@@ -6,7 +6,7 @@ use CodeIgniter\Entity\Entity;
 
 class PenilaianBukuEntity extends Entity
 {
-    protected $dates = ['dibuat_pada', 'diperbarui_pada'];
+    protected $dates = ['created_at', 'updated_at'];
 
     protected $casts = [
         'penilaian'   => 'float',
@@ -42,12 +42,12 @@ class PenilaianBukuEntity extends Entity
 
     public function getDibuatPada(string $format = 'd M Y H:i')
     {
-        return $this->formatTanggal($this->attributes['dibuat_pada'] ?? null, $format);
+        return $this->formatTanggal($this->attributes['created_at'] ?? null, $format);
     }
 
     public function getDiperbaruiPada(string $format = 'd M Y H:i')
     {
-        return $this->formatTanggal($this->attributes['diperbarui_pada'] ?? null, $format);
+        return $this->formatTanggal($this->attributes['updated_at'] ?? null, $format);
     }
 
     public function getCuplikanKomentar(): string

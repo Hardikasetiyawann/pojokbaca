@@ -72,11 +72,11 @@ class Pengguna extends Migration
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            'dibuat_pada' => [
+            'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            'diperbarui_pada' => [
+            'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],

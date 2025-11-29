@@ -10,7 +10,7 @@ class PeminjamanSeeds extends Seeder
     {
         $data = [
             [
-                'user_id'         => 1,
+                'pengguna_id'         => 1,
                 'buku_id'         => 1,
                 'tanggal_pinjam'  => '2025-07-10',
                 'tanggal_kembali' => '2025-07-17',
@@ -18,7 +18,7 @@ class PeminjamanSeeds extends Seeder
                 'updated_at'      => date('Y-m-d H:i:s'),
             ],
             [
-                'user_id'         => 2,
+                'pengguna_id'         => 2,
                 'buku_id'         => 1,
                 'tanggal_pinjam'  => '2025-07-11',
                 'tanggal_kembali' => '2025-07-18',

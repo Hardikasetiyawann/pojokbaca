@@ -23,11 +23,11 @@ class Penulis extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'dibuat_pada' => [
+            'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            'diperbarui_pada' => [
+            'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],

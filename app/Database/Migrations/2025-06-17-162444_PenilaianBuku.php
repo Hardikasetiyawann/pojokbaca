@@ -23,16 +23,18 @@ class PenilaianBuku extends Migration
                 'unsigned' => true,
             ],
             'penilaian' => [
-                'type'       => 'INT',
+                'type'       => 'TINYINT',
                 'constraint' => 1, // nilai 1–5
             ],
-            'dibuat_pada' => [
+            'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
+        $this->forge->addUniqueKey(['pengguna_id', 'buku_id']);
+
 
         // Pastikan tabel 'pengguna' dan 'buku' sudah dibuat lebih dulu
         $this->forge->addForeignKey('pengguna_id', 'pengguna', 'id', 'CASCADE', 'CASCADE');
